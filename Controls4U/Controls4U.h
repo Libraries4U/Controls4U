@@ -19,7 +19,7 @@ double AngAdd(double ang, double val);
 
 class FileSel_ : public FileSel {
 public:
-	String GetBaseDir()	{return basedir;}
+	String GetBaseDir()	{return basedir;}	
 };
 
 class EditFileFolder : public WithDropChoice<EditString> {
@@ -29,26 +29,26 @@ protected:
 	FrameLeft<Button> butBrowseLeft, butLeft, butRight, butUp;
 	FrameRight<Button> butBrowseRight, butFolder;
 	FrameRight<Button> butGo;
-
+	
 	FileSel_ *pfs;
 	bool isFile, isLoad;
 	String title;
-
+	
 	Vector <String> history;
 	int histInd;
-
+	
 	void InitFs();
-
+	
 	void DoLeft(), DoRight(), DoUp();
-
+		
 public:
 	EditFileFolder() 								{};
 	virtual ~EditFileFolder();
-
+	
 	void Init();
 	void ClearTypes()								{InitFs();	pfs->ClearTypes();}
 	void Type(const char *name, const char *ext)	{InitFs();	pfs->Type(name, ext);}
-	void ActiveType(int type)						{InitFs();	pfs->ActiveType(type);}
+	void ActiveType(int type)						{InitFs();	pfs->ActiveType(type);}	
 	void AllFilesType()								{InitFs();	pfs->AllFilesType();}
 	void ActiveDir(const String& d) 				{InitFs();	pfs->ActiveDir(d);}
 	void MkDirOption(bool b)						{InitFs();	pfs->MkDirOption(b);}
@@ -57,7 +57,7 @@ public:
 	operator const char *() const					{return Get();}
 	const String operator~() const   				{return Get();}
 	void Set(const String& s) {
-		InitFs();
+		InitFs();	
 		pfs->Set(s); 
 		EditString::SetData(s); 
 		AddHistory();
@@ -80,15 +80,15 @@ public:
 	EditFileFolder &UseDropping(bool use = true)	{Dropping(use);				return *this;}
 	EditFileFolder &BrowseDroppingWidth(int w)		{DropWidth(w);		  		return *this;}
 	virtual void SetData(const Value& data);
-
+	
 	void DoGo(bool add = true);
 	void DoBrowse();
-
+	
 	void AddHistory(String path = "", int max = 12);
 	void ClearHistory();
-
+	
 	Function<bool ()> WhenChange;
-
+	
 	virtual void Serialize(Stream& s) {
 		WithDropChoice::Serialize(s);
 		if (s.IsLoading()) {
@@ -133,22 +133,22 @@ public:
 };
 
 class EditFile : public EditFileFolder {
-typedef EditFile CLASSNAME;
-
+typedef EditFile CLASSNAME;	
+	
 public:
 	EditFile();
 	virtual ~EditFile() {};
-
+	
 	using EditFileFolder::operator=;
 };
 
 class EditFolder : public EditFileFolder {
-typedef EditFolder CLASSNAME;
-
+typedef EditFolder CLASSNAME;	
+	
 public:
 	EditFolder();
 	virtual ~EditFolder() {};
-
+	
 	using EditFileFolder::operator=;
 };
 
@@ -158,7 +158,7 @@ class ImagePopUp : public Ctrl {
 
 		ImagePopUp() {}
 		virtual ~ImagePopUp() {};
-
+		
 		Point Offset(Point p);
 
 		virtual void  Paint(Draw &w);
@@ -175,14 +175,14 @@ class ImagePopUp : public Ctrl {
 	    virtual void  LostFocus();
 		void PopUp(Ctrl *owner, int x, int y, int width, int height, Image &_image, int _angle, int _fit);
 		virtual void Close();
-
+		
 		Image image;
 		int angle, fit;
 };
 
 class StaticImage : public Ctrl {
 typedef StaticImage CLASSNAME;
-
+		
 public:
 	enum ImageAngle {Angle_0, Angle_90, Angle_180, Angle_270};
 	enum ImageFit   {BestFit, FillFrame, NoScale, RepeatToFill};
@@ -193,9 +193,9 @@ public:
 	void Clear()							{Set(Image());}
 	Image &Get()							{return origImage;}
 	void SetData(const Value& data)			{Set(data.ToString());}
-
+	
 	void  operator=(String _fileName)      	{Set(_fileName);}
-	void  operator=(Image _image)       	{Set(_image);}
+	void  operator=(Image _image)       	{Set(_image);}	
 
 	StaticImage& SetAngle(int _angle);
 	StaticImage& SetFit(int _fit)				{fit = _fit; 		  Refresh(); return *this;}
@@ -206,7 +206,7 @@ public:
 	StaticImage& SetHyperlink(String link)		{hyperlink = link;	return *this;}
 	StaticImage();
 	virtual ~StaticImage() {};
-
+	
 	Callback WhenLeftDouble;
 	Callback WhenLeftDown;
 	Callback WhenRightDown;
@@ -218,9 +218,9 @@ protected:
 	virtual void LeftDown(Point pos, dword keyflags);
 	virtual void LeftDouble(Point pos, dword keyflags);
 	virtual void MouseEnter(Point pos, dword keyflags);
-	virtual void MouseLeave();
+	virtual void MouseLeave();	
 	virtual Image CursorImage(Point, dword);
-
+	
 	String fileName;
 	Image origImage;
 	Color background;
@@ -234,7 +234,7 @@ protected:
 
 class StaticImageSet : public Ctrl {
 typedef StaticImageSet CLASSNAME;
-
+		
 protected:
 	virtual void Paint(Draw& draw);
 	virtual void LeftDown(Point pos, dword keyflags);
@@ -243,10 +243,10 @@ protected:
 	virtual void MouseMove(Point pos, dword keyflags);
 	virtual void GotFocus() 				{Refresh();}
 	virtual void LostFocus() 				{Refresh();}
-
+	
 	Vector<Image> images;
 	Color background;
-
+	
 	int id;
 
 public:
@@ -258,7 +258,7 @@ public:
 	void SetActive(int _id)					{id = _id; Refresh();}
 	StaticImageSet& SetBackground(Color c) 	{background = c; Refresh(); return *this;}
 	void Next()								{id++; if(id >= images.GetCount()) id = 0;}
-
+	
 	StaticImageSet();
 	virtual ~StaticImageSet() {};
 };
@@ -266,7 +266,7 @@ public:
 #ifndef flagNOPAINTER
 
 class StaticRectangle : public Ctrl {
-typedef StaticRectangle CLASSNAME;
+typedef StaticRectangle CLASSNAME;	
 
 public:
 	virtual void Paint(Draw& draw);
@@ -275,7 +275,7 @@ public:
 	virtual void LeftDown(Point p, dword keyflags) 		{WhenLeftDown(p, keyflags);};
 	virtual void LeftUp(Point p, dword keyflags) 		{WhenLeftUp(p, keyflags);};
 	virtual void Layout();
-
+	
 protected:
 	Color background;
 	Color color;
@@ -291,17 +291,17 @@ public:
 	Callback WhenMouseLeave;
 	Callback2<Point, dword> WhenLeftDown; 
 	Callback2<Point, dword> WhenLeftUp; 
-
+	
 	StaticRectangle();
 	virtual ~StaticRectangle() {};
 };
 
 class StaticEllipse : public Ctrl {
 typedef StaticEllipse CLASSNAME;
-
+	
 public:
 	virtual void   Paint(Draw& draw);
-
+	
 protected:
 	Color background;
 	Color color;
@@ -317,7 +317,7 @@ public:
 };
 
 class StaticFrame : public Ctrl {
-typedef StaticFrame CLASSNAME;
+typedef StaticFrame CLASSNAME;	
 
 public:
 	virtual void Paint(Draw& draw);
@@ -327,22 +327,22 @@ protected:
 
 public:
 	StaticFrame& SetBackground(Color c) {background = c; Refresh(); return *this;}
-
+	
 	StaticFrame();
 	virtual ~StaticFrame() {};
 };
 
 class StaticLine : public Ctrl, public CtrlFrame {
 typedef StaticLine CLASSNAME;
-
+	
 public:
 	virtual void FrameAddSize(Size& ) {}
 	virtual void FrameLayout(Rect& ) {}
 	virtual void FramePaint(Draw& w, const Rect& r);
 	virtual int OverPaint() const { return 20; }
-
+	
 	enum LineOrientation {OrVert, OrHor, OrNW_SE, OrSW_NE};
-
+	
 protected:
 	int orientation;
 	Color color;
@@ -353,19 +353,19 @@ public:
 	StaticLine& SetColor(Color c) 			{color = c; Refresh(); return *this;}
 	StaticLine& SetOrientation(String o);
 	StaticLine& SetOrientation(int o) 		{orientation = o; Refresh(); return *this;}
-
+	
 	StaticLine();
 	virtual ~StaticLine() {};
 };
 
 class StaticArrow : public Ctrl, public CtrlFrame  {
-typedef StaticArrow CLASSNAME;
+typedef StaticArrow CLASSNAME;	
 public:
 	virtual void FrameAddSize(Size& ) {}
 	virtual void FrameLayout(Rect& ) {}
 	virtual void FramePaint(Draw& w, const Rect& r);
 	virtual int OverPaint() const { return 20; }
-
+	
 	enum LineOrientation {OrVert, OrHor, OrNW_SE, OrSW_NE, OrNW_SE_HVH, OrSW_NE_HVH, OrNW_SE_VHV, OrSW_NE_VHV};
 	enum ArrowEnds {EndLeft, EndRight, EndLeftRight, NoEnd};
 
@@ -388,10 +388,10 @@ public:
 };
 
 class StaticClock : public Ctrl {
-typedef StaticClock CLASSNAME;
+typedef StaticClock CLASSNAME;	
 public:
 	virtual void   Paint(Draw& draw);
-
+	
 	enum HourType 	{No, Square, Rectangle};
 	enum NumberType {NoNumber, Small, Big, BigSmall, Big4};
 	enum ColorType 	{WhiteType, BlackType};
@@ -406,7 +406,7 @@ protected:
 	int colorType;
 	bool autoMode;
 
-	Time t;
+	Time t;		
 
 public:
 	StaticClock& SetImage(String fileName);
@@ -415,27 +415,27 @@ public:
 	StaticClock& SetHourType(int type) 	{hourType = type; Refresh(); return *this;}
 	StaticClock& SetNumberType(int type){numberType = type; Refresh(); return *this;}
 	StaticClock& SetColorType(int c)	{colorType = c; Refresh(); return *this;}
-	StaticClock& Seconds(bool b) 		{seconds = b; Refresh(); return *this;}
+	StaticClock& Seconds(bool b) 		{seconds = b; Refresh(); return *this;}	
 	StaticClock& SetAuto(bool mode = true);
 	bool IsAuto() 						{return autoMode;}
 	void RefreshValue() {Refresh();};
-
+	
 	void SetData(const Value& v);
 	void SetTime(const Time& tm = GetSysTime());
 	void SetTimeRefresh() {SetTime();};
 	void SetTime(int h, int n, int s);
 
 	StaticClock();
-	virtual ~StaticClock();
+	virtual ~StaticClock();	
 };
 
 class Meter : public Ctrl {
-typedef Meter CLASSNAME;
+typedef Meter CLASSNAME;		
 public:
 	virtual void   Paint(Draw& draw);
-
+	
 	enum ColorType {WhiteType, BlackType};
-
+	
 	friend void MeterThread(Meter *gui, double value);
 
 protected:
@@ -443,7 +443,7 @@ protected:
 	double min;
 	double max;
 	double peak;
-	double step;
+	double step;	
 	double angleBegin;
 	double angleEnd;
 	String text;
@@ -453,7 +453,7 @@ protected:
 	double speed;
 	int sensibility;
 	volatile Atomic running, kill;
-
+	
 	void PaintMarks(BufferPainter &w, double cx, double cy, double R, double ang0, 
 					double ang1, int direction, double step, double bigF, Color color);
 	void PaintNumbers(BufferPainter &w, double cx, double cy, double R, double a0, 
@@ -462,7 +462,7 @@ protected:
 	void PaintHand(BufferPainter &w, double cx, double cy, double R, double val, double bigF,
 					int colorType);
 	void RefreshValue() {Refresh();};
-
+	
 public:
 	Meter& SetMin(double v)			{min = value = v; Refresh(); return *this;}
 	Meter& SetMax(double v)			{max  = v; Refresh(); return *this;}
@@ -505,10 +505,10 @@ private:
 	void PaintMarks(BufferPainter &w, double cx, double cy, double R, double begin, double end, double ang0, 
 		double ang1, int direction, double minorstep, double bigF, Color color);
 	void PaintNumbers(BufferPainter &w, double cx, double cy, double R, double a0, 
-		double step, int direction, double minv, double maxv, double stepv, double bigF, Color color);
+		double step, int direction, double minv, double maxv, double stepv, double bigF, Color color);	
 	void PaintRugged(BufferPainter &w, double cx, double cy, double angle, double r, 
 		double rugg, int numRug, Color &color);
-
+	
 	virtual void  Paint(Draw& draw);
 	virtual bool  Key(dword key, int repcnt);
 	virtual void  LeftDown(Point pos, dword keyflags);
@@ -519,10 +519,10 @@ private:
 	virtual void  LostFocus();
 	virtual void  Layout();
 	Image img, imgMark;
-
+	
 public:
 	Callback WhenSlideFinish;
-
+	
 	Knob();
 	virtual ~Knob() {};
 
@@ -532,13 +532,13 @@ public:
 	void Inc(double st);
 	void Dec(double st);
 
-	Knob& ClockWise(bool v)			{clockWise = v; Refresh(); return *this;}
+	Knob& ClockWise(bool v)			{clockWise = v; Refresh(); return *this;}	
 
 	Knob& SetMin(double v)			{minv = v; value = Upp::max<double>(value, minv); Refresh(); return *this;}
 	Knob& SetMax(double v)			{maxv = v; value = Upp::min<double>(value, maxv); Refresh(); return *this;}
-	Knob& SetMinorStep(double n) 	{minorstep = n; Refresh(); return *this;}
-	Knob& SetMajorStep(double n) 	{majorstep = n; Refresh(); return *this;}
-	Knob& SetKeyStep(double fs = 1) {keyStep = fs; Refresh(); return *this;}
+	Knob& SetMinorStep(double n) 	{minorstep = n; Refresh(); return *this;}	
+	Knob& SetMajorStep(double n) 	{majorstep = n; Refresh(); return *this;}	
+	Knob& SetKeyStep(double fs = 1) {keyStep = fs; Refresh(); return *this;}	
 	Knob& SetAngleBegin(double v) 	{angleBegin = v; Refresh(); return *this;}
 	Knob& SetAngleEnd(double v)		{angleEnd = v; Refresh(); return *this;}
 	Knob& SetNumber(bool b)			{number = b; Layout(); Refresh(); return *this;}
@@ -549,19 +549,19 @@ public:
 	enum Mark {NoMark, Line, Circle};
 	Knob& SetMark(int c)		{mark = c; Layout(); Refresh(); return *this;}
 	enum Style {Simple, Rugged};
-	Knob& SetStyle(int c)		{style = c; Layout(); Refresh(); return *this;}
+	Knob& SetStyle(int c)		{style = c; Layout(); Refresh(); return *this;}	
 };
 
 #endif
 
 class FileBrowser : public StaticRect {
-typedef FileBrowser CLASSNAME;
+typedef FileBrowser CLASSNAME;	
 
 public:
 	struct EditStringLostFocus : public EditString {
 		String file;
 		Callback WhenChange;
-
+		
 		virtual void LostFocus() {
 			ValueArray values = GetData();
 			if (!IsNull(file))
@@ -582,13 +582,13 @@ public:
 			return EditString::Key(key, rep);
 		}
 	};
-
+	
 protected:
 	EditFolder folder;
-
+	
 	void OpenSelExt(bool forceOpen);
-	void OpenSel();
-
+	void OpenSel();	
+	
 private:
 	struct TreeCtrlPlus : public TreeCtrl {
 		virtual bool Key(dword key, int count) {
@@ -615,7 +615,7 @@ private:
 				if (GetSelectCount() > 1) {
 					if(PromptYesNo(Format(t_("Do you want to send the %d files to the trash bin?"), 
 								GetSelectCount()))) {
-						for (int i = 0; i < GetCount(); ++i) {
+						for (int i = 0; i < GetCount(); ++i) {			
 							if (IsSelected(i)) {
 								ValueArray va = GetColumn(i, 0);
 								String fileName = va[0];
@@ -655,7 +655,7 @@ private:
 		}
 		virtual void DragAndDrop(Point p, PasteClip& d) {
 			Vector<String> fls;
-
+			
 			if (AcceptFiles(d)) {
 				fls = GetFiles(d);
 				Refresh();
@@ -681,31 +681,31 @@ private:
 	bool readOnly;
 	EXT_FILE_FLAGS flags;
 	bool acceptDragAndDrop;
-
+	
 	void SortByColumn(int col);
-
+	
 	void FoldersWhenOpen(int id); 
 	void FoldersWhenClose(int id); 
 	void FoldersWhenSel(); 
 	void FoldersWhenLeftDouble();
-
+	
 	void FilesEnterRow();
 	void FilesWhenLeftDouble();
 	void FilesWhenSel();
 	void FilesList(String folderName, bool &thereIsAFolder);
-
+	
 	void FolderWhenChange();
-
+	
 	void FileNameWhenChanged();
-
+	
 	void AddFolder(String folder, String &myFolders, int id);
-
+	
 public: 
 	FileBrowser();
 	virtual ~FileBrowser() {};
-
+	
  	String GetFile();
- 	String operator~()    {return GetFile();}
+ 	String operator~()    {return GetFile();}	
  	String GetFolder();
 	FileBrowser &SetReadOnly(bool set = true) {readOnly = set; return *this;};
 	FileBrowser &SetUseTrashBin(bool set = true) {flags = (set ? EXT_FILE_FLAGS(flags | USE_TRASH_BIN) : EXT_FILE_FLAGS(flags & ~USE_TRASH_BIN)); return *this;};
@@ -714,8 +714,8 @@ public:
 //	FileBrowser &SetAskBeforeDelete(bool set = true) {set ? flags |= ASK_BEFORE_DELETE : flags &= ~ASK_BEFORE_DELETE; return *this;};
 	FileBrowser &SetDragAndDrop(bool set = true) {acceptDragAndDrop = set; return *this;};
 	FileBrowser &SetBrowseFiles(bool set = true) {browseFiles = set; return *this;};
-
-	//Callback WhenOpened;
+	
+	//Callback WhenOpened;	
 	Callback WhenTreeSelected;
 	Callback WhenTreeDblClick;
 	Callback WhenSelected;
@@ -726,7 +726,7 @@ typedef AboutUpp CLASSNAME;
 
 	AboutUpp();
 	virtual ~AboutUpp() {};
-
+	
 	RichTextView about;
 };
 
@@ -740,7 +740,7 @@ public:
 		SetInk(LtBlue());
 	}
 	virtual ~HyperlinkLabel() {};
-
+	
 	HyperlinkLabel& SetHyperlink(const char* str) 		{hyperlink = str; return *this;}
 
 private:
@@ -750,8 +750,8 @@ private:
 };
 
 class BarDisplay : public Display {
-typedef BarDisplay CLASSNAME;
-
+typedef BarDisplay CLASSNAME;	
+	
 public:
 	BarDisplay() : ink(SColorText), value(0), align(ALIGN_LEFT) {}
 	virtual ~BarDisplay() {};
@@ -777,12 +777,12 @@ public:
 	BarDisplay &SetText(const char *str){text = str;	return *this;}
 	BarDisplay &SetColor(Color _color, Color _paper = Null, Color _ink = SColorText) {
 		color = _color; 
-		ink = _ink;
-		paper = _paper;
+		ink = _ink;	
+		paper = _paper;	
 		return *this;
 	}
 	BarDisplay &SetAlign(int a) {align = a; return *this;}
-
+	
 private:
 	Color color, ink, paper;
 	String text;
@@ -792,11 +792,11 @@ private:
 
 class TextDisplay : public Display {
 typedef TextDisplay CLASSNAME;
-
+	
 public:
 	TextDisplay() : ink(SColorText), align(ALIGN_LEFT) {}
 	virtual ~TextDisplay() {};
-
+	
 	virtual void Paint(Draw& w, const Rect& r, const Value&, Color, Color, dword) const {
 	    w.DrawRect(r.left, r.top, r.right, r.bottom, paper);
 	    
@@ -808,14 +808,14 @@ public:
 	    default:			xtext = r.GetWidth() - sz.cx;
 	    }
 		w.DrawText(r.left + xtext, r.top + (r.Height() - StdFont().Info().GetHeight()) / 2,
-			           text, StdFont(), ink);
+			           text, StdFont(), ink);	
 	}
 	TextDisplay &SetText(const char *str) 					{text = str;					return *this;}
 	TextDisplay &SetColor(Color _ink, Color _paper = Null)	{ink = _ink;	paper = _paper;	return *this;}
 	TextDisplay &SetInk(Color _ink)							{ink = _ink;					return *this;}
 	TextDisplay &SetPaper(Color _paper)						{paper = _paper;				return *this;}
 	TextDisplay &SetAlign(int a)             				{align = a; 					return *this;}
-
+	
 private:
 	Color ink, paper;
 	String text;
@@ -831,12 +831,12 @@ public:
 		SetColor(SColorFace);
 	}
 	virtual ~InfoCtrlBar() {};
-
-	InfoCtrlBar &SetValue(double value) 											{bar.SetValue(value);				return *this;}
+	
+	InfoCtrlBar &SetValue(double value) 											{bar.SetValue(value);				return *this;}	
 	InfoCtrlBar &SetText(const char *str) 											{bar.SetText(str);					return *this;}
 	InfoCtrlBar &SetColor(Color color, Color paper = Null, Color ink = SColorText)	{bar.SetColor(color, paper, ink);	return *this;}
 	InfoCtrlBar &SetAlign(int a)             										{bar.SetAlign(a);					return *this;}
-
+	
 private:
 	BarDisplay bar;
 };
@@ -853,11 +853,11 @@ public:
 	InfoCtrlText &SetInk(Color ink)							{text.SetInk(ink);			return *this;}
 	InfoCtrlText &SetPaper(Color paper)						{text.SetPaper(paper);		return *this;}
 	InfoCtrlText &SetAlign(int a)             				{text.SetAlign(a);			return *this;}
-
+	
 private:
 	TextDisplay text;
 };
-
+	
 }
-
+	
 #endif

@@ -4,8 +4,7 @@ uses
 	CtrlLib,
 	Controls4U,
 	plugin\gif,
-	plugin\jpg,
-	PolyXML;
+	plugin\jpg;
 
 file
 	main.cpp,

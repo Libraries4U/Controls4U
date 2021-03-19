@@ -57,6 +57,21 @@ private:
 	void SetArrows();
 };
 
+class Box : public Splitter {
+public:
+	typedef Box CLASSNAME;
+
+	Box() : Splitter() {SetStyle(StyleDefault());}
+
+	static const Style& StyleDefault();
+
+private:	
+	virtual void   MouseMove(Point p, dword keyflags) 	{};
+	virtual void   LeftDown(Point p, dword keyflags) 	{};
+	virtual void   LeftUp(Point p, dword keyflags) 		{};
+	virtual Image  CursorImage(Point p, dword keyflags) {return Null;};	
+};
+
 }
 
 #endif

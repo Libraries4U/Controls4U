@@ -481,57 +481,6 @@ public:
 	void Xmlize(XmlIO &xml)		{xml ("elems", elems);}
 };
 
-/*
-class CanvasSelector {
-typedef CanvasSelector CLASSNAME;		
-public:	
-	
-};
-
-class DrawingCanvas : public Ctrl {
-typedef DrawingCanvas CLASSNAME;		
-public:	
-	DrawingCanvas();
-
-	GraphElemList elemList;
-		
-protected:
-	virtual void Paint(Draw& draw);	
-	
-private:
-	double translateX, translateY;
-	double rotate;
-	double scale;
-	bool transparent;
-	double opacity;
-	int linejoin, linecap;
-	int quality;
-	double scaleFactor;
-	
-	void DoPaint(Painter& sw);
-	
-	virtual void MouseMove(Point p, dword keyflags);
-	virtual void MouseWheel(Point p, int zdelta, dword keyflags);
-	virtual void MiddleDown(Point p, dword keyflags);
-	virtual void MiddleUp(Point p, dword keyflags);
-	virtual void MouseLeave();
-	struct FocusMove {
-		bool focusMoving;
-		Point lastFocusPoint;
-	} focusMove;
-	
-	virtual void LeftDown(Point p, dword keyflags);
-	virtual void LeftUp(Point p, dword keyflags);
-	struct SelectionWindow {
-		bool isSelected;
-		Rect selected;
-	} selectionWindow;
-};
-
-bool LoadSvg(DrawingCanvas &canvas, String fileName);
-
-*/
-
 
 class PainterCanvas : public Ctrl {
 typedef PainterCanvas CLASSNAME;		
