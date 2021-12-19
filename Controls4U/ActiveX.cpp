@@ -143,7 +143,7 @@ bool DHCtrlActiveX::Attach(HWND hwnd) {
 	if (OleCreate(clsid, IID_IOleObject, OLERENDER_DRAW, 0, (IOleClientSite *)&pClientSite, &storage, (void**)&oleObj)) 
 		return false;
 	
-	oleObj->SetHostNames(name.ToWString(), 0);
+	oleObj->SetHostNames(ToSystemCharsetW(name), 0);
 	GetClientRect(hwnd, &rect);
 	if (!OleSetContainedObject((IUnknown *)oleObj, TRUE)) {
 		if (!oleObj->DoVerb(OLEIVERB_INPLACEACTIVATE, NULL, (IOleClientSite *)&pClientSite, -1, hwnd, &rect))

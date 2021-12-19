@@ -111,8 +111,8 @@ public:
 		Reset();
 	}
 	void Reset() {
-		left = top = -DOUBLE_NULL_LIM;
-		right = bottom = DOUBLE_NULL_LIM;
+		left = top = -DBL_MAX;
+		right = bottom = DBL_MAX;
 	}
 	void UpdateLimits(const Pointf &p) {
 		UpdateLimitsH(p.x);

@@ -10,7 +10,7 @@ using namespace Upp;
 #include "JBControlsDemo.h"
 #include "Controls4U_Demo.h"
 
-#define IMAGEFILE <Controls4U_Demo/Controls4U_Demo.iml>
+#define IMAGEFILE <examples/Controls4U_Demo/Controls4U_Demo.iml>
 #define IMAGECLASS Images
 #include <Draw/iml.h>
 

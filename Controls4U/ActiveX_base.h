@@ -25,7 +25,7 @@ public:
 	operator BSTR *() {return &bstr;}
 	operator BSTR ()  {return bstr;}
 	String ToString() {
-		WString ret(static_cast<wchar *>(bstr));
+		WString ret(bstr);
 		return ret.ToString();
 	}
 private:
